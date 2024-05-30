@@ -1,0 +1,19 @@
+controllers:
+    resource: '../src/Controller/'
+    type: attribute
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+play_game:
+    path: /play
+    controller: App\Controller\GameController::play
+
+check_play_status:
+    path: /play/status
+    controller: App\Controller\GameController::checkStatus

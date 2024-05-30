@@ -1,0 +1,36 @@
+security:
+    password_hashers:
+        App\Entity\User:
+            algorithm: plaintext
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: app_user_provider
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
+
+            form_login:
+                login_path: app_login
+                check_path: app_login
+
+            logout:
+                path: app_logout
+                target: app_login
+
+            entry_point: App\Security\LoginFormAuthenticator
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/play, roles: ROLE_USER }
+        - { path: ^/play/status, roles: ROLE_USER }
